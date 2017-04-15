@@ -1,0 +1,11 @@
+<plugin name='spring-security-ldap' version='2.0-RC4' grailsVersion='2.3.0 &gt; *'>
+  <author>Burt Beckwith</author>
+  <authorEmail>burt@burtbeckwith.com</authorEmail>
+  <title>LDAP authentication support for the Spring Security plugin.</title>
+  <description>LDAP authentication support for the Spring Security plugin.</description>
+  <documentation>http://grails-plugins.github.io/grails-spring-security-ldap/</documentation>
+  <type>SpringSecurityLdapGrailsPlugin</type>
+  <resources>
+    <resource>DefaultLdapSecurityConfig</resource>
+  </resources>
+</plugin>

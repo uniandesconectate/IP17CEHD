@@ -1,0 +1,15 @@
+<plugin name='joda-time' version='1.5' grailsVersion='2.3 &gt; *'>
+  <author>Rob Fletcher</author>
+  <authorEmail>rob@freeside.co</authorEmail>
+  <title>Joda-Time Plugin</title>
+  <description>Joda Time integration for Grails</description>
+  <documentation>http://gpc.github.com/grails-joda-time/</documentation>
+  <type>JodaTimeGrailsPlugin</type>
+  <resources>
+    <resource>grails.plugin.jodatime.taglib.DateTimeTagLib</resource>
+    <resource>grails.plugin.jodatime.taglib.DateTimeZoneTagLib</resource>
+    <resource>grails.plugin.jodatime.taglib.FormattingTagLib</resource>
+    <resource>grails.plugin.jodatime.taglib.Html5InputTagLib</resource>
+    <resource>grails.plugin.jodatime.taglib.PeriodTagLib</resource>
+  </resources>
+</plugin>
