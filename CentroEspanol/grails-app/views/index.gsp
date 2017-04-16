@@ -27,7 +27,7 @@
 					<li><g:link controller="texto" action="index">Texto</g:link></li>
 					<li><g:link controller="evaluacion" action="index">Evaluación</g:link></li>
 					<li><g:link controller="estudiante" action="index">Estudiante</g:link></li>
-					<li><g:link controller="matriz" action="index">Matriz</g:link></li>
+					<li><g:link controller="matrizCalificacion" action="index">Matriz</g:link></li>
 					<li><g:link controller="criterio" action="index">Criterios</g:link></li>
 					<li><g:link controller="respuesta" action="index">Respuestas</g:link></li>
 					<li><g:link controller="opcion" action="index">Opciones de respuesta</g:link></li>

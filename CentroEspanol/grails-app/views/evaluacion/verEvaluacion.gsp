@@ -6,11 +6,12 @@
 		<h3>Evaluando texto #${evaluacion.texto.id} - ${evaluacion.texto.estudiante}</h3>
 		<g:form name="evaluacion" action="evaluarTexto" id="${evaluacion.id}">
 			<div class="row">
-				<div class="col-md-6 col-sm-12">
-					<h4>Texto</h4>
-					<p>${evaluacion.texto.texto}</p>
+				<div class="col-md-10 col-sm-12">
+					<p style="text-align:justify">${raw(evaluacion.texto.texto)}</p>
 				</div>
-				<div class="col-md-6 col-sm-12">
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
 					<h4>Matriz de calificación</h4>
 					<table class="table">
 						<g:each var="criterio" in="${evaluacion.matrizCalificacion.criterios.sort{it.posicion}}">
@@ -28,7 +29,9 @@
 					</table>
 				</div>
 			</div>
-			<input type="submit" value="Enviar evaluación" class="btn btn-default">
+			<div class="row">
+				<input type="submit" value="Enviar evaluación" class="btn btn-default">
+			</div>
 		</g:form>
 	</body>
 </html>

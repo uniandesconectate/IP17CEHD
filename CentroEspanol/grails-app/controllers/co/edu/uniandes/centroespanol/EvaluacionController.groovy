@@ -23,7 +23,7 @@ class EvaluacionController {
 		Evaluacion evaluacion = Evaluacion.get(params.id)
 		User usuario = springSecurityService.getCurrentUser()
 		if(evaluacion && evaluacion.evaluador.id == usuario.id) {
-			evaluacion.texto.texto = evaluacion.texto.texto.replaceAll('\r\n', '<br/>')
+			evaluacion.texto.texto = evaluacion.texto.texto.replaceAll('\n', '<br/>')
 			[evaluacion: evaluacion]
 		} else {
 			flash.error = 'No se encontr\u00F3 la evaluaci\u00F3n seleccionada'

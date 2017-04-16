@@ -38,14 +38,17 @@
 					</g:link>
 				</div>
 			</g:each>
-			<g:link controller="texto" action="rechazarEvaluacionTexto" id="${texto.id}" class="btn btn-default">
-				Rechazar todas las evaluaciones
-			</g:link>
-			<g:link controller="texto" action="aceptarTexto" id="${texto.id}" class="btn btn-default">
-				Terminar revisión y generar PDF
-			</g:link>
+			<hr />
+			<center>
+				<g:link controller="texto" action="rechazarEvaluacionTexto" id="${texto.id}" class="btn btn-default">
+					Rechazar todas las evaluaciones
+				</g:link>
+				<g:link controller="texto" action="aceptarTexto" id="${texto.id}" class="btn btn-default">
+					Terminar revisión y generar PDF
+				</g:link>
+			</center>
 		</div>
 		<h4>Texto</h4>
-		<p>${texto.texto}</p>
+		<p style="text-align:justify">${raw(texto.texto)}</p>
 	</body>
 </html>

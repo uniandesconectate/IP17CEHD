@@ -8,7 +8,7 @@ class Criterio {
 	static belongsTo = [matrizCalificacion: MatrizCalificacion]
 	
     static constraints = {
-		nombre blank: false
+		nombre blank: false, size: 1..5000
 		posicion min: 0, unique: 'matrizCalificacion'
     }
 	

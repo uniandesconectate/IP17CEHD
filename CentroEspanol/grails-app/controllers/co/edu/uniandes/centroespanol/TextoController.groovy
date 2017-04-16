@@ -30,7 +30,7 @@ class TextoController {
 		Texto texto = Texto.get(params.id)
 		User usuario = springSecurityService.getCurrentUser()
 		if(texto && texto.revisor.id == usuario.id) {
-			texto.texto = texto.texto.replaceAll('\r\n', '<br/>')
+			texto.texto = texto.texto.replaceAll('\n', '<br/>')
 			[texto: texto]
 		} else {
 			flash.error = 'No se encontr\u00F3 el texto seleccionado'
@@ -80,9 +80,10 @@ class TextoController {
 		String folder = grailsApplication.config.co.edu.uniandes.pdfFolder
 		String fileName = date.format("yyyy-MM-d_") + textoInstance.estudiante.usuario.username + ".pdf"
 		def respuestas = textoInstance.evaluaciones[0].respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
+		def respuestasComp
 		for(int i=0;i<textoInstance.evaluaciones.size();i++) {
 			textoInstance.evaluaciones[i].respuestaMatrizCalificacion.respuestas = textoInstance.evaluaciones[i].respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
-			def respuestasComp = textoInstance.evaluaciones[i].respuestaMatrizCalificacion.respuestas
+			respuestasComp = textoInstance.evaluaciones[i].respuestaMatrizCalificacion.respuestas
 			for(int j=0;j<respuestasComp.size();j++) {
 				respuestas[j]=respuestas[j].numero<respuestasComp[j].numero?respuestas[j]:respuestasComp[j]
 			} 
