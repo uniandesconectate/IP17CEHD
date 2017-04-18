@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i");
+body {
+    font-family: "Roboto", sans-serif
+}
+
+header,
+footer {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6)
+}
+
+header {
+    position: relative;
+    z-index: 2;
+    background: url("../images/header.jpg") center center no-repeat;
+    background-size: cover;
+    color: #fff;
+    padding: 1em 0em;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-weight: 400
+}
+
+header div .userBox {
+    text-align: right;
+	margin: auto;    
+}
+
+header a {
+    color: #fff
+}
+
+header a:hover {
+	color: white;
+}
+
+.vertical-align {
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical-align > [class^="col-"],
+.vertical-align > [class*=" col-"] {
+  display: flex;
+  align-items: center;
+}
+
+footer {
+    background: #004d40;
+    padding: 1em 0em;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2em;
+    font-size: 0.8em;
+    position: relative;
+    z-index: 3;
+    margin-top: 20px;
+}
+
+section {
+    background: #eceff1;
+    padding: 50px 0px;
+    position: relative;
+    z-index: 1
+}

@@ -4,49 +4,44 @@
 	</head>
 	<body>
 		<h3>Revisar texto #${texto.id} - ${texto.estudiante}</h3>
-		<div class="row">
-			<g:each var="evaluacion" in="${texto.evaluaciones}">
-				<div class="col-sm-12 col-md-${12/texto.evaluaciones.size()}">
-					<div class="panel panel-default">
-					  	<div class="panel-heading">
-					  		<h3 class="panel-title">Evaluacion de ${evaluacion.evaluador}</h3>
-					  	</div>
-					  	<div class="panel-body">
-						    <table class="table">
-								<thead>
-									<tr>
-										<th>Criterio</th>
-										<th>Opción elegida</th>
-									</tr>
-								</thead>
-								<tbody>
-									<g:each var="respuesta" in="${evaluacion.respuestaMatrizCalificacion.respuestas.sort{it.criterio.posicion}}">
-										<tr>
-											<td>${respuesta.criterio}</td>
-											<td>
-												<p><strong>${respuesta.numero}</strong></p>
-												<p>${respuesta.descripcion}</p>
-											</td>
-										</tr>
-									</g:each>
-								</tbody>
-							</table>
-					  	</div>
-					</div>
-					<g:link controller="evaluacion" action="rechazarEvaluacion" id="${evaluacion.id}" class="btn btn-default">
-						Rechazar evaluación
-					</g:link>
-				</div>
-			</g:each>
-			<hr />
-			<center>
-				<g:link controller="texto" action="rechazarEvaluacionTexto" id="${texto.id}" class="btn btn-default">
-					Rechazar todas las evaluaciones
-				</g:link>
-				<g:link controller="texto" action="aceptarTexto" id="${texto.id}" class="btn btn-default">
-					Terminar revisión y generar PDF
-				</g:link>
-			</center>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<tr>
+					<th>Criterio</th>
+					<g:each var="evaluacion" in="${texto.evaluaciones}">
+						<th>Elección ${evaluacion.evaluador}</th>
+					</g:each>
+				</tr>
+				<g:each var="criterio" in="${matrizCalificacion.criterios.sort{it.posicion}}">
+					<tr>
+						<td>
+							<strong>${criterio}</strong>
+						</td>
+						<g:each var="evaluacion" in="${texto.evaluaciones}">
+							<td>
+								${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}}
+							</td>
+						</g:each>
+					</tr>
+				</g:each>
+				<tr>
+					<td>
+						<g:link action="rechazarEvaluacionTexto" id="${texto.id}" class="btn btn-default">
+							Rechazar evaluaciones
+						</g:link>
+						<g:link action="aceptarTexto" id="${texto.id}" class="btn btn-default">
+							Terminar revisión
+						</g:link>
+					</td>
+					<g:each var="evaluacion" in="${texto.evaluaciones}">
+						<td>
+							<g:link controller="evaluacion" action="rechazarEvaluacion" id="${evaluacion.id}" class="btn btn-default">
+								Rechazar evaluación
+							</g:link>
+						</td>
+					</g:each>
+				</tr>
+			</table>
 		</div>
 		<h4>Texto</h4>
 		<p style="text-align:justify">${raw(texto.texto)}</p>

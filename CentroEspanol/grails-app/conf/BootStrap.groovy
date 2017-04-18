@@ -37,11 +37,11 @@ class BootStrap {
 	def crearUsuarios(CentroEspanol centroEspanol) {
 		def usuarios = []
 		
-		usuarios.add(new User(email: 'soportelidie@uniandes.edu.co', username: 'admin', password: '12345', centroEspanol: centroEspanol))
-		usuarios.add(new User(email: 'cr.calle@uniandes.edu.co', username: 'cr.calle', password: '12345', centroEspanol: centroEspanol))
-		usuarios.add(new User(email: 'gcortes@uniandes.edu.co', username: 'gcortes', password: '12345', centroEspanol: centroEspanol))
-		usuarios.add(new User(email: 'se-busto@uniandes.edu.co', username: 'se-busto', password: '12345', centroEspanol: centroEspanol))
-		usuarios.add(new User(email: 'cf.agudelo12@uniandes.edu.co', username: 'cf.agudelo12', password: '12345', centroEspanol: centroEspanol))
+		usuarios.add(new User(email: 'soportelidie@uniandes.edu.co', username: 'admin', password: 'NZ2fWLIMjzPuUQA6UtRk', centroEspanol: centroEspanol))
+		usuarios.add(new User(email: 'cr.calle@uniandes.edu.co', username: 'cr.calle', password: 'NZ2fWLIMjzPuUQA6UtRk', centroEspanol: centroEspanol))
+		usuarios.add(new User(email: 'gcortes@uniandes.edu.co', username: 'gcortes', password: 'NZ2fWLIMjzPuUQA6UtRk', centroEspanol: centroEspanol))
+		usuarios.add(new User(email: 'se-busto@uniandes.edu.co', username: 'se-busto', password: 'NZ2fWLIMjzPuUQA6UtRk', centroEspanol: centroEspanol))
+		usuarios.add(new User(email: 'cf.agudelo12@uniandes.edu.co', username: 'cf.agudelo12', password: 'NZ2fWLIMjzPuUQA6UtRk', centroEspanol: centroEspanol))
 		
 		for(usuario in usuarios) {
 			centroEspanol.addToUsuarios(usuario)
@@ -106,8 +106,7 @@ class BootStrap {
 		
 		for(matrizCalificacion in matricesCalificacion) {
 			for(int i = 0; i < criteriosNombres.size(); i++) {
-				Criterio criterio = new Criterio(nombre: criteriosNombres[i].decodeHTML(), posicion: (i+1), matrizCalificacion: matrizCalificacion)
-				System.out.println(criterio)
+				Criterio criterio = new Criterio(nombre: criteriosNombres[i], posicion: (i+1), matrizCalificacion: matrizCalificacion)
 				matrizCalificacion.addToCriterios(criterio)
 				criterios.add(criterio)
 			}
@@ -118,8 +117,9 @@ class BootStrap {
 	
 	def crearOpcionesCriterio(criterios) {
 		def opciones = []
-		def niveles = ["Alto","Intermedio Alto","Intermedio","Intermedio Bajo","Bajo"]
+		def niveles = ["Alto", "Intermedio Alto", "Intermedio", "Intermedio Bajo", "Bajo"]
 		def opcionesCalificacion = []
+		
 		opcionesCalificacion.add("Construye oraciones con una estructura interna adecuada (sujeto, verbo, complemento).")
 		opcionesCalificacion.add("La mayor\u00EDa de sus oraciones tienen una estructura interna adecuada (sujeto, verbo, complemento), pero a veces comete errores de puntuaci\u00F3n.")
 		opcionesCalificacion.add("Algunas de sus oraciones tienen una estructura interna adecuada (sujeto, verbo, complemento). Sin embargo, en otras comete errores de puntuaci\u00F3n que afectan el sentido del texto.")
@@ -173,11 +173,11 @@ class BootStrap {
 		opcionesCalificacion.add("Plantea una tesis y construye algunos argumentos que la sustentan. Propone una relaci\u00F3n que no es l\u00F3gica entre los argumentos y la tesis. El texto tiene introducci\u00F3n, desarrollo y conclusi\u00F3n o cierre.")
 		opcionesCalificacion.add("La idea central que propone como tesis no lo es porque no es debatible. Por lo tanto, las ideas que expone no son argumentos. La estructura no corresponde a la de un texto argumentativo.")
 		opcionesCalificacion.add("No plantea una idea central porque no hay una jerarqu\u00EDa de las ideas expuestas.  La estructura no corresponde a la de un texto argumentativo.")
+		
 		int posicion = 0
 		for(criterio in criterios) {
-			
 			for(int i = 0; i < niveles.size(); i++) {
-				OpcionCriterio opcion = new OpcionCriterio(numero: niveles.size()-i, nivel: niveles[i], descripcion: opcionesCalificacion[posicion].encodeAsHTML(), retroalimentacion: opcionesCalificacion[posicion].decodeHTML())
+				OpcionCriterio opcion = new OpcionCriterio(numero: niveles.size()-i, nivel: niveles[i], descripcion: opcionesCalificacion[posicion], retroalimentacion: opcionesCalificacion[posicion])
 				criterio.addToOpciones(opcion)
 				opciones.add(opcion)
 				posicion++

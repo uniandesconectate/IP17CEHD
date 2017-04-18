@@ -17,30 +17,52 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-	    	<div class="navbar-header">
-	      		<a class="navbar-brand" href="/CentroEspanol">Centro de Español</a>
-	    	</div>
-	    	<sec:ifLoggedIn>
-      			<ul class="nav navbar-nav navbar-right">
-       				<li><g:link controller="logout" class="register">Logout</g:link></li>
-   				</ul>
-			</sec:ifLoggedIn>
-	  	</div>
-	</nav>
+	<header>
 		<div class="container">
-			<g:if test="${flash.error}">
-				<div class="alert alert-danger" role="alert">
-					${flash.error}
+			<div class="row vertical-align">
+				<div class="col-xs-12 col-md-11">
+					<h1><g:link uri="/">Centro de Español</g:link></h1>
 				</div>
-			</g:if>
-			<g:if test="${flash.message}">
-				<div class="alert alert-info" role="alert">
-					${flash.message}
-				</div>
-			</g:if>
-			<g:layoutBody/>
+				<sec:ifLoggedIn>
+					<div class="col-xs-12 col-md-1">
+						<h4><g:link controller="logout">Salir</g:link></h4>
+					</div>
+				</sec:ifLoggedIn>
+			</div>
 		</div>
+	</header>
+	<div class="container">
+		<g:if test="${flash.error}">
+			<div class="alert alert-danger" role="alert">
+				${flash.error}
+			</div>
+		</g:if>
+		<g:if test="${flash.message}">
+			<div class="alert alert-info" role="alert">
+				${flash.message}
+			</div>
+		</g:if>
+		<g:layoutBody/>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="col-xs-12 col-sm-3">
+				<a href="http://uniandes.edu.co/" target="_blank">
+					<asset:image src="uniandes.png" alt="Universidad de Los Andes"/>
+				</a>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				Universidad de los Andes | Vigilada Mineducación<br />
+				Reconocimiento como Universidad: Decreto 1297 del 30 de mayo de 1964.<br />
+				Reconocimiento personería jurídica: Resolución 28 del 23 de febrero de 1949 Minjusticia.<br />
+				Cra 1 Nº 18A- 12 Bogotá, (Colombia) | Código postal: 111711 | Tels: +571 3394949 - +571 3394999
+			</div>
+			<div class="col-xs-12 col-sm-3">
+				<a href="http://conectate.uniandes.edu.co/" target="_blank">
+				<asset:image src="conectate.png" alt="Conecta-TE" />
+				</a>
+			</div>
+		</div>
+	</footer>
 	</body>
 </html>

@@ -146,7 +146,7 @@ log4j.main = {
 //Adicionado por RCA para habilitar el controlador de logout
 grails.plugin.springsecurity.logout.postOnly = false
 
-grails.plugin.springsecurity.ldap.active = false
+//grails.plugin.springsecurity.ldap.active = false
 
 // LDAP config
 grails.plugin.springsecurity.ldap.context.managerDn = 'CN=SvcP-Sop4-Adm,OU=Service Accounts,DC=ad,DC=uniandes,DC=edu,DC=co'

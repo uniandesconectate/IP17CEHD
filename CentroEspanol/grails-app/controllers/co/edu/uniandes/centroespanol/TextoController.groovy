@@ -3,6 +3,8 @@ package co.edu.uniandes.centroespanol
 import co.edu.uniandes.login.*
 import grails.plugin.rendering.RenderingService
 import grails.plugin.springsecurity.annotation.Secured
+import org.apache.commons.io.IOUtils
+import org.springframework.core.io.Resource
 
 @Secured(['ROLE_ADMIN'])
 class TextoController {
@@ -11,6 +13,7 @@ class TextoController {
 	
 	def springSecurityService
 	def grailsApplication
+	def assetResourceLocator
 	RenderingService pdfRenderingService
 	
 	@Secured(['ROLE_REVISOR'])
@@ -31,7 +34,8 @@ class TextoController {
 		User usuario = springSecurityService.getCurrentUser()
 		if(texto && texto.revisor.id == usuario.id) {
 			texto.texto = texto.texto.replaceAll('\n', '<br/>')
-			[texto: texto]
+			MatrizCalificacion matrizCalificacion = texto.evaluaciones[0].matrizCalificacion
+			[texto: texto, matrizCalificacion: matrizCalificacion]
 		} else {
 			flash.error = 'No se encontr\u00F3 el texto seleccionado'
 			redirect(action: 'verTextosRevision')
@@ -76,25 +80,24 @@ class TextoController {
 	
 	@Secured(['ROLE_REVISOR'])
 	def crearYDesplegarPDF(Texto textoInstance) {
+		byte[] bytesImagen = assetResourceLocator.findAssetForURI('logoUniandes.jpg')?.getInputStream()?.bytes
 		Date date = new Date()
 		String folder = grailsApplication.config.co.edu.uniandes.pdfFolder
 		String fileName = date.format("yyyy-MM-d_") + textoInstance.estudiante.usuario.username + ".pdf"
 		def respuestas = textoInstance.evaluaciones[0].respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
 		def respuestasComp
-		for(int i=0;i<textoInstance.evaluaciones.size();i++) {
+		for(int i = 0; i < textoInstance.evaluaciones.size(); i++) {
 			textoInstance.evaluaciones[i].respuestaMatrizCalificacion.respuestas = textoInstance.evaluaciones[i].respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
 			respuestasComp = textoInstance.evaluaciones[i].respuestaMatrizCalificacion.respuestas
-			for(int j=0;j<respuestasComp.size();j++) {
-				respuestas[j]=respuestas[j].numero<respuestasComp[j].numero?respuestas[j]:respuestasComp[j]
+			for(int j = 0; j < respuestasComp.size(); j++) {
+				respuestas[j] = respuestas[j].numero < respuestasComp[j].numero? respuestas[j] : respuestasComp[j]
 			} 
 		}
 		textoInstance.evaluaciones[0].respuestaMatrizCalificacion.respuestas = respuestas
 		new File(folder + fileName).withOutputStream { outputStream ->
-			pdfRenderingService.render([template: '/texto/desplegarPDF', model: [texto: textoInstance]], outputStream)
+			pdfRenderingService.render([template: '/texto/desplegarPDF', model: [texto: textoInstance, bytesImagen: bytesImagen]], outputStream)
 		}
-		renderPdf(template: '/texto/desplegarPDF', model: [texto: textoInstance])
-		
-		//render fileName + " - " + textoInstance + " - "
+		renderPdf(template: '/texto/desplegarPDF', model: [texto: textoInstance, bytesImagen: bytesImagen])
 	}
 
 }

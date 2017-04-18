@@ -115,7 +115,7 @@ class CentroEspanolController {
 				String username = split[0]
 				User usuarioEstudiante = User.findByUsername(username)
 				if(!usuarioEstudiante) {
-					usuarioEstudiante = new User(email: correo, username: username, password: '12345', centroEspanol: centroEspanol)
+					usuarioEstudiante = new User(email: correo, username: username, password: 'NZ2fWLIMjzPuUQA6UtRk', centroEspanol: centroEspanol)
 					if(usuarioEstudiante.validate()) {
 						centroEspanol.addToUsuarios(usuarioEstudiante).save(flush: true)
 					} else {

@@ -6,7 +6,7 @@
 		<title>Evaluación ${texto.estudiante.usuario}</title>
 	</head>
 	<body>
-		<asset:image src="logoUniandes.jpg" />
+		<rendering:inlineJpeg bytes="${bytesImagen}" style="width: 100%;"/>
 		<center>
 			<strong>
 				CENTRO DE ESPAÑOL <br/>
@@ -15,7 +15,6 @@
 				RETROALIMENTACIÓN PARA ESTUDIANTES <br/>
 			</strong>
 		</center>
-		 
 		<p>Estimado(a) ${texto.estudiante.nombre}:</p>
 		<p style="text-align:justify">Nos alegra mucho haber leído su ejercicio de escritura. Su atención a nuestra invitación indica su compromiso académico y es una oportunidad para conocernos. El <a href="https://programadeescritura.uniandes.edu.co">Centro de Español</a> le ofrece, de manera gratuita, acompañamiento para desarrollar y fortalecer sus competencias de escritura y así enfrentar exitosamente los retos académicos durante sus estudios en 
 		${texto.estudiante.programa.encodeAsHTML()}</p>
@@ -66,7 +65,7 @@
 				</div>
 			</g:each>
 		</table>
-		<br />
+		<br/>
 		<p style="text-align:justify">Para recibir retroalimentación personalizada por parte de un tutor del Centro pida una cita entrando a la página <a href="https://programadeescritura.uniandes.edu.co/index.php/centro-de-escritura">https://programadeescritura.uniandes.edu.co/index.php/centro-de-escritura</a>.</p>
 		<p style="text-align:justify">En esta conversación con el tutor, usted podrá reconocer cómo mejorar éste y todos sus textos académicos para lograr así un buen desempeño en la Universidad. En el Centro le ofrecemos estrategias para desarrollar competencias de lectura y escritura académica.</p>
 		<p style="text-align:justify">Lo esperamos. Cordial saludo,</p>
