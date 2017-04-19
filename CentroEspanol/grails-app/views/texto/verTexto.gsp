@@ -1,3 +1,4 @@
+<%@ page import="co.edu.uniandes.centroespanol.Utils" %>
 <html>
 	<head>
 		<meta name="layout" content="main"/>
@@ -19,11 +20,18 @@
 						</td>
 						<g:each var="evaluacion" in="${texto.evaluaciones}">
 							<td>
+								<p style="text-align: center; margin-bottom: 0px;"><strong>${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}.numero}</strong></p>
 								${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}}
 							</td>
 						</g:each>
 					</tr>
 				</g:each>
+				<tr>
+					<td><strong>Promedio</strong></td>
+					<g:each var="evaluacion" in="${texto.evaluaciones}">
+						<td style="text-align: center;"><strong><g:formatNumber number="${Utils.calcularPromedioRespuesta(evaluacion.respuestaMatrizCalificacion)}" format="###.##"/></strong></td>
+					</g:each>
+				</tr>
 				<tr>
 					<td>
 						<g:link action="rechazarEvaluacionTexto" id="${texto.id}" class="btn btn-default">

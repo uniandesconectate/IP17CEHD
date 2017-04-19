@@ -34,12 +34,12 @@
 	<div class="container">
 		<g:if test="${flash.error}">
 			<div class="alert alert-danger" role="alert">
-				${flash.error}
+				${raw(flash.error)}
 			</div>
 		</g:if>
 		<g:if test="${flash.message}">
 			<div class="alert alert-info" role="alert">
-				${flash.message}
+				${raw(flash.message)}
 			</div>
 		</g:if>
 		<g:layoutBody/>

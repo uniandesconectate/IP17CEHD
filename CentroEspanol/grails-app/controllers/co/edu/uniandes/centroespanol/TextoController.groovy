@@ -55,12 +55,12 @@ class TextoController {
 				evaluacion.numeroRechazos++
 				evaluacion.estado = Evaluacion.ESTADO_PENDIENTE
 				evaluacion.save(flush: true)
-				flash.message += "La evaluaci\u00F3n de ${evaluacion.evaluador} fue rechazada correctamente. <br />"
+				flash.message += "La evaluaci\u00F3n de ${evaluacion.evaluador} fue rechazada correctamente. <br/>"
 			}
 		} else {
 			flash.error = 'No se encontr\u00F3 la evaluaci\u00F3n a rechazar'
 		}
-			redirect(action: 'verTextosRevision')
+		redirect(action: 'verTextosRevision')
 	}
 	
 	@Secured(['ROLE_REVISOR'])
