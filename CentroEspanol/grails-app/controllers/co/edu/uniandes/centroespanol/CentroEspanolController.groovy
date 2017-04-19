@@ -115,7 +115,7 @@ class CentroEspanolController {
 				String username = split[0]
 				User usuarioEstudiante = User.findByUsername(username)
 				if(!usuarioEstudiante) {
-					usuarioEstudiante = new User(email: correo, username: username, password: 'NZ2fWLIMjzPuUQA6UtRk', centroEspanol: centroEspanol)
+					usuarioEstudiante = new User(email: correo, username: username, password: 'NZ2fWLIMjzPuUQA6Ut_A', centroEspanol: centroEspanol)
 					if(usuarioEstudiante.validate()) {
 						centroEspanol.addToUsuarios(usuarioEstudiante).save(flush: true)
 					} else {
@@ -137,7 +137,7 @@ class CentroEspanolController {
 				}
 				User usuarioRevisor = User.findByUsername(revisor)
 				if(!usuarioRevisor) {
-					usuarioRevisor = new User(email: "${revisor}@uniandes.edu.co", username: revisor, password: '12345', centroEspanol: centroEspanol)
+					usuarioRevisor = new User(email: "${revisor}@uniandes.edu.co", username: revisor, password: 'NZ2fWLIMjzPuUQA6Ut_b', centroEspanol: centroEspanol)
 					if(usuarioRevisor.validate()) {
 						centroEspanol.addToUsuarios(usuarioRevisor).save(flush: true)
 					} else {
@@ -149,7 +149,7 @@ class CentroEspanolController {
 				}
 				User usuarioEvaluador1 = User.findByUsername(evaluador1)
 				if(!usuarioEvaluador1) {
-					usuarioEvaluador1 = new User(email: "${evaluador1}@uniandes.edu.co", username: evaluador1, password: '12345', centroEspanol: centroEspanol)
+					usuarioEvaluador1 = new User(email: "${evaluador1}@uniandes.edu.co", username: evaluador1, password: 'NZ2fWLIMjzPuUQA6Ut_c', centroEspanol: centroEspanol)
 					if(usuarioEvaluador1.validate()) {
 						centroEspanol.addToUsuarios(usuarioEvaluador1).save(flush: true)
 					} else {
