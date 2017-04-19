@@ -161,7 +161,7 @@ class CentroEspanolController {
 				}
 				User usuarioEvaluador2 = User.findByUsername(evaluador2)
 				if(!usuarioEvaluador2) {
-					usuarioEvaluador2 = new User(email: "${evaluador2}@uniandes.edu.co", username: evaluador2, password: '12345', centroEspanol: centroEspanol)
+					usuarioEvaluador2 = new User(email: "${evaluador2}@uniandes.edu.co", username: evaluador2, password: 'NZ2fWLIMjzPuUQA6Ut_D', centroEspanol: centroEspanol)
 					if(usuarioEvaluador2.validate()) {
 						centroEspanol.addToUsuarios(usuarioEvaluador2).save(flush: true)
 					} else {
