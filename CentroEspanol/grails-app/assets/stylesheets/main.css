@@ -64,3 +64,72 @@ section {
     position: relative;
     z-index: 1
 }
+
+.prevLink, .nextLink, .currentStep, .step {
+	display: inline-block;
+	padding: 6px 12px;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+	margin: 2px;
+}
+
+.currentStep {
+	background-color: #c6c6c6;
+}
+
+.step:focus,
+.step:active:focus,
+.step.active:focus,
+.step.focus,
+.step:active.focus,
+.step.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.step:hover,
+.step:focus,
+.step.focus {
+  color: #333;
+  text-decoration: none;
+}
+
+.step:active,
+.step.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px					 5px rgba(0, 0, 0, .125);
+}
+
+.step.disabled,
+.step[disabled],
+fieldset[disabled] .step {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  opacity: .65;
+}
+
+a.step.disabled,
+fieldset[disabled] a.step {
+  pointer-events: none;
+}

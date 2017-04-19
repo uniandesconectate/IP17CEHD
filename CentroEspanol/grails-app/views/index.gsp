@@ -16,7 +16,7 @@
 					<li><g:link controller="centroEspanol" action="subirInformacion">Subir información</g:link></li>
 				</sec:ifAllGranted>
 				<sec:ifAllGranted roles="${Role.ROLE_EVALUADOR}">
-					<li><g:link controller="evaluacion" action="verEvaluacionesPendientes">Ver evaluaciones pendientes</g:link></li>
+					<li><g:link controller="evaluacion" action="verEvaluacionesPendientes" params="[offset: 0, max: 10]">Ver evaluaciones pendientes</g:link></li>
 				</sec:ifAllGranted>
 				<sec:ifAllGranted roles="${Role.ROLE_REVISOR}">
 					<li><g:link controller="texto" action="verTextosRevision">Ver textos pendientes de revisión</g:link></li>

@@ -14,8 +14,8 @@ class EvaluacionController {
 	@Secured(['ROLE_EVALUADOR'])
 	def verEvaluacionesPendientes() {
 		User usuario = springSecurityService.getCurrentUser()
-		def evaluaciones = Evaluacion.findAllByEvaluadorAndEstado(usuario, Evaluacion.ESTADO_PENDIENTE)
-		[evaluaciones: evaluaciones]
+		def evaluaciones = Evaluacion.findAllByEvaluadorAndEstado(usuario, Evaluacion.ESTADO_PENDIENTE, params)
+		[evaluaciones: evaluaciones, total: Evaluacion.countByEvaluadorAndEstado(usuario, Evaluacion.ESTADO_PENDIENTE)]
 	}
 	
 	@Secured(['ROLE_EVALUADOR'])

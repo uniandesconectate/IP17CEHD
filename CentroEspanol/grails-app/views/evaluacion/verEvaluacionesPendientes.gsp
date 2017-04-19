@@ -12,5 +12,6 @@
 				<g:link action="verEvaluacion" id="${evaluacion.id}" class="list-group-item">Texto #${evaluacion.texto.id} - ${evaluacion.texto.estudiante}</g:link>
 			</g:each>
 		</div>
+		<g:paginate action="verEvaluacionesPendientes" total="${total}"/>
 	</body>
 </html>
