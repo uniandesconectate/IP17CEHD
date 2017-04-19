@@ -84,7 +84,7 @@ class BootStrap {
 	def crearMatricesCalificacion(CentroEspanol centroEspanol) {
 		def matricesCalificacion = []
 		
-		MatrizCalificacion matrizCalificacion = new MatrizCalificacion(nombre: 'Matriz de prueba', centroEspanol: centroEspanol)
+		MatrizCalificacion matrizCalificacion = new MatrizCalificacion(nombre: 'Matriz de texto argumentativo', centroEspanol: centroEspanol)
 		centroEspanol.addToMatricesCalificacion(matrizCalificacion)
 		matricesCalificacion.add(matrizCalificacion)
 
