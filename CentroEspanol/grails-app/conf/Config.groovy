@@ -94,8 +94,8 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-		co.edu.uniandes.uploadfolder = "/var/lib/tomcat7/datos_centro_espanol/"
-		co.edu.uniandes.pdfFolder = "/var/lib/tomcat7/resultados_centro_espanol/"
+		co.edu.uniandes.uploadfolder = "/datos/datos_CentroEspanol/"
+		co.edu.uniandes.pdfFolder = "/datos/datos_ResultadosCentroEspanol/"
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
