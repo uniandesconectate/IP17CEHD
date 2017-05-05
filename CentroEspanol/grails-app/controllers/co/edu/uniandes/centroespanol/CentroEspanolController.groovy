@@ -195,4 +195,28 @@ class CentroEspanolController {
 			throw new Exception("No se pudo asignar la evaluaci\u00F3n del evaluador 1 al texto en la fila ${fila}")
 		}
 	}
+	
+	def reporteGeneral() {
+		Integer inicioParam = params.int('inicio')
+		Integer finParam = params.int('fin')
+		int inicio = inicioParam!=null?inicioParam:0
+		int fin = finParam!=null?finParam:Integer.MAX_VALUE
+		def matrizInicial
+		
+		def textos = Texto.findAll{id>=inicio && id<=fin}.sort(false){it.id}
+		for(int i=0;i<textos.size();i++) {
+			textos[i].evaluaciones = textos[i].evaluaciones.sort(false){it.id}
+			for(int j=0;j<textos[i].evaluaciones.size();j++) {
+				if(textos[i].evaluaciones[j].respuestaMatrizCalificacion!=null) {
+					textos[i].evaluaciones[j].respuestaMatrizCalificacion.respuestas = textos[i].evaluaciones[j].respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
+				}
+			}
+		}
+		
+		if(textos.size()>0) {
+			matrizInicial = textos[0].evaluaciones[0].matrizCalificacion
+			matrizInicial.criterios = matrizInicial.criterios.sort(false){it.posicion}
+		}
+		[inicio: inicio, fin: fin, textos: textos, matrizInicial: matrizInicial]
+	}
 }
