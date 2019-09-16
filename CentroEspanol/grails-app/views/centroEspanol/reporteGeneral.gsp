@@ -22,7 +22,12 @@
 			  		<label for="fin">Texto final para mostrar</label>
 			  		<g:field type="number" name="fin" min="1" required="true" value="${fin==null?0:fin}"> </g:field>
 				</div>
-				<input type="submit" value="Ver reporte" class="btn btn-default"/> 
+				<div class="form-group">
+			  		<label for="separador">Separador para descarga</label>
+			  		<g:select name="separador" id="separador" from="[',',';']" />
+				</div>
+				<g:actionSubmit value="Ver reporte" action="reporteGeneral"/>
+				<g:actionSubmit value="Ver reporte en Csv" action="reporteGeneralCsv"/>
 			</g:form>
 		</div>
 		<hr />
@@ -31,6 +36,8 @@
 				<thead>
 					<th><center>Texto</center></th>
 					<th>Código</th>
+					<th>Usuario</th>
+					<th>Programa</th>
 					<th>Evaluador</th>
 					<th>Devoluciones</th>
 					<th>Estado</th>
@@ -48,6 +55,8 @@
 							<tr>
 								<td>${texto.id}</td>
 								<td>${texto.estudiante.codigo}</td>
+								<td>${texto.estudiante.usuario.username}</td>
+								<td>${texto.estudiante.programa}</td>
 								<td>${evaluacion.evaluador.username}</td>
 								<td><center>${evaluacion.numeroRechazos}</center></td>
 								<td>${evaluacion.estado}</td>

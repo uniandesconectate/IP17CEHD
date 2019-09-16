@@ -44,7 +44,7 @@ environments {
         dataSource {
 
 		    //pooled = true
-		    dbCreate = "update"
+		    dbCreate = ""
 		    url = "jdbc:mysql://localhost:3306/dbcentesp?characterEncoding=utf8"
 		    driverClassName = "com.mysql.jdbc.Driver"
 		    username = "usdbcentesp"

@@ -55,6 +55,7 @@ grails.project.dependency.resolution = {
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
 		//Adicionado por RCA - Se debe adicionar para cargar la librerìa de PDF
 		runtime "org.springframework:spring-test:4.1.5.RELEASE"
+		//compile 'xml-apis:xml-apis:1.4.01'
     }
 
     plugins {
@@ -84,8 +85,13 @@ grails.project.dependency.resolution = {
 		//compile ":ckeditor:3.6.6.1.0"
 		//Cargar y utilizar archivos de Excel
 		compile ':excel-import:1.1.0.BUILD-SNAPSHOT'
+		//compile 'xml-apis:xml-apis:1.4.1'
+		//compile ":excel-export:0.2.2"
 		//Render de pdf y jpg
 		compile ":rendering:1.0.0"
+		//Manejador de csv
+		compile ":csv:0.3.1"
+
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"

@@ -83,7 +83,7 @@ class TextoController {
 		byte[] bytesImagen = assetResourceLocator.findAssetForURI('logoUniandes.jpg')?.getInputStream()?.bytes
 		Date date = new Date()
 		String folder = grailsApplication.config.co.edu.uniandes.pdfFolder
-		String fileName = date.format("yyyy-MM-d_") + textoInstance.estudiante.usuario.username + ".pdf"
+		String fileName = "" + textoInstance.id + "_" + date.format("yyyy-MM-d_") + textoInstance.estudiante.usuario.username + ".pdf"
 		def respuestas = textoInstance.evaluaciones[0].respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
 		def respuestasComp
 		for(int i = 0; i < textoInstance.evaluaciones.size(); i++) {

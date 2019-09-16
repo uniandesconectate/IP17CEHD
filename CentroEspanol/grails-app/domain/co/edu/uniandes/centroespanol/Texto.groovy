@@ -15,7 +15,7 @@ class Texto {
 	static belongsTo = [centroEspanol: CentroEspanol]
 	
     static constraints = {
-		texto blank: false, size: 1..14000
+		texto blank: false, size: 1..30000
 		evaluaciones minSize: 2
 		estado inList: [ESTADO_PENDIENTE, ESTADO_REVISADO]
     }

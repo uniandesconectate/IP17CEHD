@@ -6,11 +6,11 @@ import co.edu.uniandes.centroespanol.*
 class BootStrap {
 
     def init = { servletContext ->
-		CentroEspanol centroEspanol = new CentroEspanol()
-		def usuarios = crearUsuarios(centroEspanol)
-		def matricesCalificacion = crearMatricesCalificacion(centroEspanol)
-		def criterios = crearCriterios(matricesCalificacion)
-		def opciones = crearOpcionesCriterio(criterios)
+//		CentroEspanol centroEspanol = new CentroEspanol()
+//		def usuarios = crearUsuarios(centroEspanol)
+//		def matricesCalificacion = crearMatricesCalificacion(centroEspanol)
+//		def criterios = crearCriterios(matricesCalificacion)
+//		def opciones = crearOpcionesCriterio(criterios)
     }
 	
     def destroy = {

@@ -20,8 +20,11 @@
 						</td>
 						<g:each var="evaluacion" in="${texto.evaluaciones}">
 							<td>
-								<p style="text-align: center; margin-bottom: 0px;"><strong>${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}.numero}</strong></p>
-								${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}}
+								<!-- RCA: Esta verificación se realiza porque los textos quedaron calificados con matrices distintas. -->
+								<g:if test="${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}!=null}">
+									<p style="text-align: center; margin-bottom: 0px;"><strong>${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}.numero}</strong></p>
+									${evaluacion.respuestaMatrizCalificacion.respuestas.find{it.criterio.id==criterio.id}}
+								</g:if>
 							</td>
 						</g:each>
 					</tr>

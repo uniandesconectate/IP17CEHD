@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+//import pl.touk.excel.export.WebXlsxExporter
 
 @Secured(['ROLE_ADMIN'])
 class CentroEspanolController {
@@ -75,6 +76,7 @@ class CentroEspanolController {
 		String revisor = null
 		while (cellIterator.hasNext()) {
 			Cell cell = cellIterator.next()
+			
 			if(columna == 0 && cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 				codigo = cell.getNumericCellValue()
 			} else if(columna == 1 && cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
@@ -101,6 +103,7 @@ class CentroEspanolController {
 			}
 			columna++
 		}
+		println (codigo+ " - " + documento+ " - " + nombre+ " - " + apellido+ " - " + programa+ " - " + correo+ " - " + evaluador1+ " - " + evaluador2+ " - " + revisor+ " - " + fila)
 		cargarFila(centroEspanol, matrizCalificacion, codigo, documento, nombre, apellido, programa, correo, texto, evaluador1, evaluador2, revisor, fila)
 	}
 	
@@ -116,8 +119,10 @@ class CentroEspanolController {
 				User usuarioEstudiante = User.findByUsername(username)
 				if(!usuarioEstudiante) {
 					usuarioEstudiante = new User(email: correo, username: username, password: 'NZ2fWLIMjzPuUQA6Ut_A', centroEspanol: centroEspanol)
+					usuarioEstudiante.save()
 					if(usuarioEstudiante.validate()) {
 						centroEspanol.addToUsuarios(usuarioEstudiante).save(flush: true)
+						//println("El usuario: " + usuarioEstudiante + usuarioEstudiante.id)
 					} else {
 						throw new Exception("No se pudo crear el usuario del estudiante en la fila ${fila}")
 					}
@@ -129,6 +134,7 @@ class CentroEspanolController {
 				if(!estudiante) {
 					estudiante = new Estudiante(usuario: usuarioEstudiante, codigo: codigo, documento: documento, nombre: nombre,
 					apellido: apellido, programa: programa, centroEspanol: centroEspanol)
+					estudiante.save()
 					if(estudiante.validate()) {
 						centroEspanol.addToEstudiantes(estudiante).save(flush: true)
 					} else {
@@ -138,6 +144,7 @@ class CentroEspanolController {
 				User usuarioRevisor = User.findByUsername(revisor)
 				if(!usuarioRevisor) {
 					usuarioRevisor = new User(email: "${revisor}@uniandes.edu.co", username: revisor, password: 'NZ2fWLIMjzPuUQA6Ut_b', centroEspanol: centroEspanol)
+					usuarioRevisor.save()
 					if(usuarioRevisor.validate()) {
 						centroEspanol.addToUsuarios(usuarioRevisor).save(flush: true)
 					} else {
@@ -150,6 +157,7 @@ class CentroEspanolController {
 				User usuarioEvaluador1 = User.findByUsername(evaluador1)
 				if(!usuarioEvaluador1) {
 					usuarioEvaluador1 = new User(email: "${evaluador1}@uniandes.edu.co", username: evaluador1, password: 'NZ2fWLIMjzPuUQA6Ut_c', centroEspanol: centroEspanol)
+					usuarioEvaluador1.save()
 					if(usuarioEvaluador1.validate()) {
 						centroEspanol.addToUsuarios(usuarioEvaluador1).save(flush: true)
 					} else {
@@ -162,6 +170,7 @@ class CentroEspanolController {
 				User usuarioEvaluador2 = User.findByUsername(evaluador2)
 				if(!usuarioEvaluador2) {
 					usuarioEvaluador2 = new User(email: "${evaluador2}@uniandes.edu.co", username: evaluador2, password: 'NZ2fWLIMjzPuUQA6Ut_D', centroEspanol: centroEspanol)
+					usuarioEvaluador2.save()
 					if(usuarioEvaluador2.validate()) {
 						centroEspanol.addToUsuarios(usuarioEvaluador2).save(flush: true)
 					} else {
@@ -171,7 +180,9 @@ class CentroEspanolController {
 				if(!UserRole.exists(usuarioEvaluador2.id, rolEvaluador.id)) {
 					UserRole.create(usuarioEvaluador2, rolEvaluador)
 				}
+				println("Voy a crear el texto con estudiante " + estudiante + " revisor " + usuarioRevisor)
 				Texto textoEstudiante = new Texto(texto: texto, estudiante: estudiante, revisor: usuarioRevisor, centroEspanol: centroEspanol)
+				textoEstudiante.save()
 				if(textoEstudiante.validate()) {
 					crearEvaluacion(usuarioEvaluador1, textoEstudiante, matrizCalificacion, fila)
 					crearEvaluacion(usuarioEvaluador2, textoEstudiante, matrizCalificacion, fila)
@@ -189,6 +200,7 @@ class CentroEspanolController {
 
 	private void crearEvaluacion(User evaluador, Texto texto, MatrizCalificacion matrizCalificacion, int fila) {
 		Evaluacion evaluacion = new Evaluacion(evaluador: evaluador, matrizCalificacion: matrizCalificacion, texto: texto)
+		evaluacion.save()
 		if(evaluacion.validate()) {
 			texto.addToEvaluaciones(evaluacion)
 		} else {
@@ -200,7 +212,7 @@ class CentroEspanolController {
 		Integer inicioParam = params.int('inicio')
 		Integer finParam = params.int('fin')
 		int inicio = inicioParam!=null?inicioParam:0
-		int fin = finParam!=null?finParam:Integer.MAX_VALUE
+		int fin = finParam!=null?finParam:0
 		def matrizInicial
 		
 		def textos = Texto.findAll{id>=inicio && id<=fin}.sort(false){it.id}
@@ -219,4 +231,124 @@ class CentroEspanolController {
 		}
 		[inicio: inicio, fin: fin, textos: textos, matrizInicial: matrizInicial]
 	}
+	
+	def reporteGeneralCsv() {
+		def titulos = ['Texto', 'C\u00F3digo', 'Usuario', 'Programa', 'Evaluador', 'Devoluciones', 'Estado']
+		def filas = []
+		
+		Integer inicioParam = params.int('inicio')
+		Integer finParam = params.int('fin')
+		String separador = params["separador"]
+		int inicio = inicioParam!=null?inicioParam:0
+		int fin = finParam!=null?finParam:0
+		def matrizInicial
+		def textos = Texto.findAll{id>=inicio && id<=fin}.sort(false){it.id}
+		textos.each { texto ->
+			texto.evaluaciones = texto.evaluaciones.sort(false){it.id}
+			texto.evaluaciones.each  { evaluacion ->
+				float promedio = 0
+				def fila = []
+				fila = [texto.id, "" + texto.estudiante.codigo, texto.estudiante.usuario.username, texto.estudiante.programa, evaluacion.evaluador.username, evaluacion.numeroRechazos, evaluacion.estado]
+				if(evaluacion.respuestaMatrizCalificacion!=null) {
+					evaluacion.respuestaMatrizCalificacion.respuestas = evaluacion.respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
+					evaluacion.respuestaMatrizCalificacion.respuestas.each { respuesta ->
+						fila.add(respuesta.numero)
+						promedio += respuesta.numero
+					}
+					promedio /= evaluacion.respuestaMatrizCalificacion.respuestas.size()
+					promedio = Math.round(promedio*100)/100
+					//System.out.println("Separador: " + separador)
+					if(separador==";") {
+						fila.add((""+promedio).replace(".",","))	
+					} else {
+						fila.add((""+promedio).replace(",","."))	
+					}
+				}
+				//System.out.println(fila)
+				filas.add(fila)
+			}
+		}
+		
+		if(textos.size()>0) {
+			matrizInicial = textos[0].evaluaciones[0].matrizCalificacion
+			matrizInicial.criterios = matrizInicial.criterios.sort(false){it.posicion}
+			matrizInicial.criterios.each { criterio ->
+				titulos.add(criterio.nombre)
+			}
+		}
+		titulos.add("Promedio")
+		filas.add(0,titulos)
+		int posicion = 6
+		
+		String textoResultados=""
+		filas.each {fila ->
+			fila.each { dato ->
+				textoResultados += '"' + dato + '";'
+			}
+			textoResultados += "\n"
+			//System.out.println(textoResultados)
+		}
+		response.setHeader("Content-disposition", "attachment; filename=Resultados.csv")
+		response.setHeader("charset","ISO8859-1")
+		render(contentType: "text/csv", encoding:"ISO-8859-1 ", text:textoResultados )
+	}
+	
+/**	
+	def reporteGeneralExcel() {
+		def titulos = ['Texto', 'C\u00F3digo', 'Usuario', 'Programa', 'Evaluador', 'Devoluciones', 'Estado']
+		def filas = []
+		
+		Integer inicioParam = params.int('inicio')
+		Integer finParam = params.int('fin')
+		int inicio = inicioParam!=null?inicioParam:0
+		int fin = finParam!=null?finParam:0
+		def matrizInicial
+		def textos = Texto.findAll{id>=inicio && id<=fin}.sort(false){it.id}
+		textos.each { texto ->
+			texto.evaluaciones = texto.evaluaciones.sort(false){it.id}
+			texto.evaluaciones.each  { evaluacion ->
+				float promedio = 0
+				def fila = []
+				fila = [texto.id, "" + texto.estudiante.codigo, texto.estudiante.usuario.username, texto.estudiante.programa, evaluacion.evaluador.username, evaluacion.numeroRechazos, evaluacion.estado]
+				if(evaluacion.respuestaMatrizCalificacion!=null) {
+					evaluacion.respuestaMatrizCalificacion.respuestas = evaluacion.respuestaMatrizCalificacion.respuestas.sort(false){it.criterio.posicion}
+					evaluacion.respuestaMatrizCalificacion.respuestas.each { respuesta ->
+						fila.add(respuesta.numero)
+						promedio += respuesta.numero
+					}
+					promedio /= evaluacion.respuestaMatrizCalificacion.respuestas.size()
+					fila.add(promedio)
+				}
+				//System.out.println(fila)
+				filas.add(fila)
+			}
+		}
+		
+		if(textos.size()>0) {
+			matrizInicial = textos[0].evaluaciones[0].matrizCalificacion
+			matrizInicial.criterios = matrizInicial.criterios.sort(false){it.posicion}
+			matrizInicial.criterios.each { criterio ->
+				titulos.add(criterio.nombre)
+			}
+		}
+		titulos.add("Promedio")
+		filas.add(0,titulos)
+		int posicion = 6
+		
+
+		new WebXlsxExporter().with {
+			setResponseHeaders(response)
+			putCellValue(0,0, "Universidad de los Andes")
+			putCellValue(1,0, "Centro de Espa\u00F1ol")
+			putCellValue(2,0, "Reporte de evaluaciones")
+			putCellValue(3,0, "Registros de " + inicio + " a " + fin)
+			putCellValue(4,0, "Fecha del reporte " + new Date())
+			
+			filas.each { fila ->
+				fillRow(fila,posicion++)
+			}
+			save(response.outputStream)
+		}
+	}
+**/	
 }

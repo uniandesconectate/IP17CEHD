@@ -9,30 +9,29 @@
 		<rendering:inlineJpeg bytes="${bytesImagen}" style="width: 100%;"/>
 		<center>
 			<strong>
-				CENTRO DE ESPAÑOL <br/>
-				UNIVERSIDAD DE LOS ANDES <br/>
-				EJERCICIO DE ESCRITURA <br/>
-				RETROALIMENTACIÓN PARA ESTUDIANTES <br/>
+				DIAGNÓSTICO DE ESCRITURA PARA EL CONTEXTO UNIVERSITARIO<br/>
 			</strong>
 		</center>
+		<br />
 		<p>Estimado(a) ${texto.estudiante.nombre}:</p>
-		<p style="text-align:justify">Nos alegra mucho haber leído su ejercicio de escritura. Su atención a nuestra invitación indica su compromiso académico y es una oportunidad para conocernos. El <a href="https://programadeescritura.uniandes.edu.co">Centro de Español</a> le ofrece, de manera gratuita, acompañamiento para desarrollar y fortalecer sus competencias de escritura y así enfrentar exitosamente los retos académicos durante sus estudios en 
-		${texto.estudiante.programa.encodeAsHTML()}</p>
-		<p style="text-align:justify">A continuación encontrará dos tablas que muestran una valoración de su ejercicio de escritura. La primera le ofrece retroalimentación en torno a tres competencias de escritura definidas por el Centro de Español como competencias fundamentales en el ejercicio de escritura: la analítica, la reflexiva y la argumentativa. Para cada una de estas usted encontrará, en la primera columna, su nivel de desarrollo actual y, en la segunda columna, el nivel de desarrollo definido como excelente.</p>
-		<p style="text-align:justify">En la segunda tabla usted encontrará una representación gráfica de todos los criterios definidos para cada una de las competencias. A partir de la valoración de su ejercicio de escritura, señalamos con una X sus desempeños de manera que usted pueda identificar gráficamente su nivel actual de desarrollo de las competencias mencionadas. De este modo, podrá identificar los desempeños que usted puede fortalecer por medio de las tutorías que se ofrecen en el Centro de Español.</p>
-		
-		<center><strong>Tabla 1.</strong></center>
-		<table style="border: 1px solid gray">
+		<br />
+		<p style="text-align:justify">La escritura es una herramienta fundamental en el contexto académico y profesional. El Centro de Español le ofrece, de manera gratuita, acompañamiento para desarrollar y fortalecer sus habilidades comunicativas, con el fin de enfrentar exitosamente los retos académicos durante sus estudios en ${texto.estudiante.programa.encodeAsHTML()}, así como en su vida profesional.</p>
+		<p style="text-align:justify">A continuación, encontrará un reporte que muestra un diagnóstico de sus habilidades de escritura. En este usted encontrará la descripción de su nivel de desempeño actual en la construcción de oraciones y de párrafos; en la presentación coherente de sus ideas en el texto; en el uso de la ortografía y el lenguaje académico; en el reconocimiento de la propiedad intelectual; en el uso de fuentes para argumentar y en la construcción tanto de una postura como de argumentos que la sustentan. Del mismo modo, usted hallará el desempeño excelente con respecto a estos criterios.</p>
+		<br />
+		<table style="border: 1px solid gray; border-collapse: collapse;" >
 			<tr>
-				<th style="border: 1px solid gray">Competencia</th>
-				<th style="border: 1px solid gray">Desempeño actual</th>
-				<th style="border: 1px solid gray">Desempeño excelente</th>
+				<th colspan="3" style="border: 1px solid gray; background-color: #bce8f1;"><center>DIAGNÓSTICO DE ESCRITURA PARA EL CONTEXTO UNIVERSITARIO</center></th>
+			</tr>
+			<tr>
+				<th style="border: 1px solid gray; background-color: #bce8f1;"><center>Criterio</center></th>
+				<th style="border: 1px solid gray; background-color: #bce8f1;"><center>Desempeño actual</center></th>
+				<th style="border: 1px solid gray; background-color: #bce8f1;"><center>Desempeño excelente</center></th>
 			</tr>
 			<g:each in="${texto.evaluaciones[0].respuestaMatrizCalificacion.respuestas}" var="respuesta" stauts="i">
 				<tr>
-					<td style="border: 1px solid gray">${respuesta.criterio.nombre}</td>
-					<td style="border: 1px solid gray">${respuesta.retroalimentacion}</td>
-					<td style="border: 1px solid gray">${respuesta.criterio.opciones.sort(false){-it.numero}.first()}</td>
+					<td style="border: 1px solid gray; padding: 5px;">${respuesta.criterio.nombre}</td>
+					<td style="border: 1px solid gray; padding: 5px;">${respuesta.retroalimentacion}</td>
+					<td style="border: 1px solid gray; padding: 5px;">${respuesta.criterio.opciones.sort(false){-it.numero}.first()}</td>
 				</tr>
 				<div class="row">
 					
@@ -41,37 +40,15 @@
 		</table>
 		
 		<br />
-		<center><strong>Tabla 2.</strong></center>
-		<table style="border: 1px solid gray">
-			<tr>
-				<th style="border: 1px solid gray">Competencias</th>
-				<g:each in="${texto.evaluaciones[0].respuestaMatrizCalificacion.respuestas[0].criterio.opciones.sort(false){-it.numero}}" var="opcion" status="i">
-					<th style="border: 1px solid gray">${opcion.nivel}</th>	
-				</g:each>
-			</tr>
-			<g:each in="${texto.evaluaciones[0].respuestaMatrizCalificacion.respuestas}" var="respuesta" stauts="i">
-				<tr>
-					<td style="border: 1px solid gray">${respuesta.criterio.nombre}</td>
-					<g:each in="${texto.evaluaciones[0].respuestaMatrizCalificacion.respuestas[0].criterio.opciones.sort(false){-it.numero}}" var="opcion" status="i">
-						<td style="border: 1px solid gray">
-							<g:if test="${opcion.nivel==respuesta.nivel}">
-								X
-							</g:if>
-						</td>
-					</g:each>
-				</tr>
-				<div class="row">
-					
-				</div>
-			</g:each>
-		</table>
-		<br/>
-		<p style="text-align:justify">Para recibir retroalimentación personalizada por parte de un tutor del Centro pida una cita entrando a la página <a href="https://programadeescritura.uniandes.edu.co/index.php/centro-de-escritura">https://programadeescritura.uniandes.edu.co/index.php/centro-de-escritura</a>.</p>
-		<p style="text-align:justify">En esta conversación con el tutor, usted podrá reconocer cómo mejorar éste y todos sus textos académicos para lograr así un buen desempeño en la Universidad. En el Centro le ofrecemos estrategias para desarrollar competencias de lectura y escritura académica.</p>
-		<p style="text-align:justify">Lo esperamos. Cordial saludo,</p>
-		Centro de Español <br />
+		<br />
+		<p style="text-align:justify">Para recibir retroalimentación personalizada acerca de este reporte por parte de un tutor del Centro, pida una cita a través del siguiente enlace electrónico: <a href="https://centrodeespanol.uniandes.edu.co/">https://centrodeespanol.uniandes.edu.co/</a>.</p>
+		<p style="text-align:justify">En esta tutoría usted podrá interactuar con un tutor a partir de su texto para desarrollar habilidades que le permitan pensar críticamente y usar la escritura como medio para comunicar sus ideas. Además, usted también podrá desarrollar sus habilidades de lectura y de comunicación oral para distintos ejercicios académicos en este tipo de interacciones con un(a) tutor(a).</p>
+		<p style="text-align:justify">Lo esperamos.</p>
+		<p style="text-align:justify">Cordial saludo,</p>
+		<br />
+		<strong>Centro de Español</strong> <br />
 		Universidad de los Andes <br />
-		Tels. 3394949 ext. 4926 <br />
+		Tels. 3394949 ext. 4927 <br />
 		ejerciciodeescritura@uniandes.edu.co <br />
 	</body>
 </html>
